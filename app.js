@@ -5,8 +5,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const mongoose = require('mongoose');
+const config = require("config");
+
+
+const connection = config.get("mongodb");
+console.log(`connecting to ${connection}`);
+
+mongoose.connect(connection);
+
 //mongoose.connect('mongodb://127.0.0.1:27017/MONGODBLES');
-mongoose.connect('mongodb+srv://danteverbiest:7nKd9ddVxmLsqSdv@mongodblescluster.a3i9g.mongodb.net/'); //aanpassen voor conndecte om mongedb.com
+//mongoose.connect(
+  //'mongodb+srv://danteverbiest:7nKd9ddVxmLsqSdv@mongodblescluster.a3i9g.mongodb.net/'
+//); //aanpassen voor conndecte om mongedb.com //in production file
 
 const messageRouter = require('./routes/api/v1/messages');
 
