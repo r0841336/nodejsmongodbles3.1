@@ -31,8 +31,23 @@ const index = async (req, res) => {
 
 };
 
+const deleteMessage = async (req, res) => {
+    try {
+        const { id } = req.params; // Haal het ID uit de URL
+        const message = await Message.findByIdAndDelete(id); // Zoek en verwijder het bericht
+
+        if (!message) {
+            return res.status(404).json({ status: "error", message: "Bericht niet gevonden" });
+        }
+
+        res.json({ status: "success", message: "Bericht succesvol verwijderd" });
+    } catch (error) {
+        res.status(500).json({ status: "error", message: "Interne serverfout", error: error.message });
+    }
+};
 
 module.exports = {
     create,
     index,
+    deleteMessage,
 };
